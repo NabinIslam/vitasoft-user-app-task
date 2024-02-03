@@ -1,0 +1,29 @@
+.user_img {
+  border-radius: 100%;
+  border: 1px solid #ddd;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.user_dp_name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.user_joined {
+  font-size: 12px;
+  font-weight: 600;
+}

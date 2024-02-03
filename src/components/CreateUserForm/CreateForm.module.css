@@ -1,0 +1,72 @@
+.form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.name_field {
+  width: 100%;
+  padding: 10px 5px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 2px solid #000;
+}
+
+.dp_dropbox {
+  border: 2px solid #000;
+  border-radius: 5px;
+  margin: 5px 0;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: beige;
+}
+
+.dp_dropbox p {
+  text-align: center;
+}
+
+.birthday {
+  padding: 5px 5px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  margin: 5px 0 10px 0;
+}
+
+.description_field {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.status_field {
+  width: 100%;
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0;
+}
+
+.dp_dropbox img {
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  margin-top: 20px;
+}
+
+.submitBtn {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: green;
+  color: #fff;
+  font-weight: bold;
+}
+
+.submitBtn:hover {
+ 
+  background-color: rgb(101, 155, 101);
+}
