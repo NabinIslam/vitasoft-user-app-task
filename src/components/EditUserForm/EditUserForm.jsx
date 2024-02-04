@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import Dropzone from 'react-dropzone';
 import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import { CKEditor } from '@ckeditor/ckeditor5-react';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import Image from 'next/image';
@@ -17,6 +17,19 @@ const EditUserForm = ({ id }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [description, setDescription] = useState('');
   const [user, setUser] = useState(null);
+
+  const CKEditor = dynamic(
+    () => {
+      return import('@ckeditor/ckeditor5-react');
+    },
+    { ssr: false }
+  );
+  const ClassicEditor = dynamic(
+    () => {
+      return import('@ckeditor/ckeditor5-build-classic');
+    },
+    { ssr: false }
+  );
 
   useEffect(() => {
     axios

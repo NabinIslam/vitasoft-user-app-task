@@ -14,6 +14,10 @@ import axios from 'axios';
 import dynamic from 'next/dynamic';
 
 const CreateUserForm = () => {
+  const { handleSubmit, reset, register } = useForm();
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [startDate, setStartDate] = useState(new Date());
+  const [description, setDescription] = useState('');
   const CKEditor = dynamic(
     () => {
       return import('@ckeditor/ckeditor5-react');
@@ -26,11 +30,6 @@ const CreateUserForm = () => {
     },
     { ssr: false }
   );
-
-  const { handleSubmit, reset, register } = useForm();
-  const [profilePicture, setProfilePicture] = useState(null);
-  const [startDate, setStartDate] = useState(new Date());
-  const [description, setDescription] = useState('');
 
   const onDrop = acceptedFiles => setProfilePicture(acceptedFiles[0]);
 
