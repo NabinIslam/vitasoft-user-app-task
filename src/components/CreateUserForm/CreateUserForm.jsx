@@ -7,7 +7,7 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 // import { CKEditor } from '@ckeditor/ckeditor5-react';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import Editor from 'ckeditor5-custom-build';
+// import Editor from 'ckeditor5-custom-build';
 
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -17,7 +17,13 @@ const CreateUserForm = () => {
     () => {
       return import('@ckeditor/ckeditor5-react');
     },
-    { ssr: false, window }
+    { ssr: false }
+  );
+  const Editor = dynamic(
+    () => {
+      return import('ckeditor5-custom-build');
+    },
+    { ssr: false }
   );
   const { handleSubmit, reset, register } = useForm();
   const [profilePicture, setProfilePicture] = useState(null);
