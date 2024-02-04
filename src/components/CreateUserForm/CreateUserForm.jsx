@@ -13,9 +13,9 @@ import axios from 'axios';
 const CreateUserForm = () => {
   const CKEditor = dynamic(
     () => {
-      return import('@ckeditor/ckeditor5-react');
+      return import('../../ckeditor5');
     },
-    { ssr: false, window }
+    { ssr: false }
   );
   const { handleSubmit, reset, register } = useForm();
   const [profilePicture, setProfilePicture] = useState(null);
