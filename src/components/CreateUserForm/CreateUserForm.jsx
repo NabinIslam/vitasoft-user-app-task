@@ -6,16 +6,18 @@ import Dropzone from 'react-dropzone';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 // import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Editor from 'ckeditor5-custom-build';
+
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
 const CreateUserForm = () => {
   const CKEditor = dynamic(
     () => {
-      return import('../../ckeditor5');
+      return import('@ckeditor/ckeditor5-react');
     },
-    { ssr: false }
+    { ssr: false, window }
   );
   const { handleSubmit, reset, register } = useForm();
   const [profilePicture, setProfilePicture] = useState(null);
@@ -103,7 +105,7 @@ const CreateUserForm = () => {
       <label htmlFor="">Description</label>
       <div className={styles.description_field}>
         <CKEditor
-          editor={ClassicEditor}
+          editor={Editor}
           data={description}
           onChange={(event, editor) => {
             const data = editor.getData();
