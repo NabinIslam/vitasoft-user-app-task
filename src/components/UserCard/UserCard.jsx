@@ -1,9 +1,13 @@
 import styles from '@/components/UserCard/UserCard.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const UserCard = ({ user }) => {
   return (
     <div className={styles.card}>
+      <Link className={styles.editBtn} href={`/edit-user/${user.id}`}>
+        Edit
+      </Link>
       <div className={styles.user_dp_name}>
         {user.profile_picture && (
           <Image

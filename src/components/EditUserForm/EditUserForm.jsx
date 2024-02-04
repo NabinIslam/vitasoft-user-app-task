@@ -3,18 +3,26 @@
 import styles from '@/components/CreateUserForm/CreateForm.module.css';
 import { useForm } from 'react-hook-form';
 import Dropzone from 'react-dropzone';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import Image from 'next/image';
 
-const CreateUserForm = () => {
+const EditUserForm = ({ id }) => {
   const { handleSubmit, reset, register } = useForm();
   const [profilePicture, setProfilePicture] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
   const [description, setDescription] = useState('');
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`https://tasks.vitasoftsolutions.com/userdata/${id}/`)
+      .then(res => setUser(res.data));
+  }, []);
 
   const onDrop = acceptedFiles => setProfilePicture(acceptedFiles[0]);
 
@@ -35,12 +43,12 @@ const CreateUserForm = () => {
     formData.append('active_status', activeStatus);
 
     axios
-      .post('https://tasks.vitasoftsolutions.com/userdata/', formData)
+      .put(`https://tasks.vitasoftsolutions.com/userdata/${id}/`, formData)
       .then(res => {
         reset();
         setProfilePicture(null);
         setDescription('');
-        toast.success('User created successfully');
+        toast.success('User updated successfully');
       })
       .catch(error => {
         toast.error(`Could not create the user :( Something went wrong!!`);
@@ -61,12 +69,25 @@ const CreateUserForm = () => {
           className={styles.name_field}
           {...register('name')}
           type="text"
+          defaultValue={user?.name}
           placeholder="Name"
         />
       </div>
 
       <div>
         <label htmlFor="">Profile Picture</label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {user?.profile_picture && (
+            <Image
+              style={{ borderRadius: '100%', border: '1px solid #ddd' }}
+              src={user?.profile_picture}
+              height={100}
+              width={100}
+              alt={user?.name}
+            />
+          )}
+          <p>Current profile picture</p>
+        </div>
         <Dropzone onDrop={onDrop}>
           {({ getRootProps, getInputProps }) => (
             <div className={styles.dp_dropbox} {...getRootProps()}>
@@ -74,11 +95,11 @@ const CreateUserForm = () => {
               <p>
                 {profilePicture
                   ? profilePicture?.name
-                  : "Drag 'n' drop your profile picture here, or click to select file"}
+                  : "Drag 'n' drop your new profile picture here, or click to select file"}
               </p>
               {/* {profiePicture && (
-                <img src={profiePicture ? profiePicture : ''} alt="" />
-              )} */}
+            <img src={profiePicture ? profiePicture : ''} alt="" />
+          )} */}
             </div>
           )}
         </Dropzone>
@@ -91,6 +112,7 @@ const CreateUserForm = () => {
         <DatePicker
           className={styles.birthday}
           selected={startDate}
+          placeholderText={user?.birthdate}
           onChange={date => setStartDate(date)}
         />
       </div>
@@ -98,7 +120,7 @@ const CreateUserForm = () => {
       <div className={styles.description_field}>
         <CKEditor
           editor={ClassicEditor}
-          data={description}
+          data={user?.description}
           onChange={(event, editor) => {
             const data = editor.getData();
             setDescription(data);
@@ -117,10 +139,10 @@ const CreateUserForm = () => {
       </div>
 
       <button className={styles.submitBtn} type="submit">
-        Create
+        Update
       </button>
     </form>
   );
 };
 
-export default CreateUserForm;
+export default EditUserForm;
