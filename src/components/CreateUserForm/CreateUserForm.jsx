@@ -15,7 +15,7 @@ const CreateUserForm = () => {
     () => {
       return import('@ckeditor/ckeditor5-react');
     },
-    { ssr: false }
+    { ssr: false, window }
   );
   const { handleSubmit, reset, register } = useForm();
   const [profilePicture, setProfilePicture] = useState(null);
