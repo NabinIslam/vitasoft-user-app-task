@@ -7,9 +7,12 @@ import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 // import { CKEditor } from '@ckeditor/ckeditor5-react';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import Editor from 'ckeditor5-custom-build';
+
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
 const EditUserForm = ({ id }) => {
   const { handleSubmit, reset, register } = useForm();
@@ -18,15 +21,9 @@ const EditUserForm = ({ id }) => {
   const [description, setDescription] = useState('');
   const [user, setUser] = useState(null);
 
-  const CKEditor = dynamic(
+  const UpdateUserEditor = dynamic(
     () => {
-      return import('@ckeditor/ckeditor5-react');
-    },
-    { ssr: false }
-  );
-  const ClassicEditor = dynamic(
-    () => {
-      return import('@ckeditor/ckeditor5-build-classic');
+      return import('@/components/UpdateUserEditor/UpdateUserEditor');
     },
     { ssr: false }
   );
@@ -131,14 +128,18 @@ const EditUserForm = ({ id }) => {
       </div>
       <label htmlFor="">Description</label>
       <div className={styles.description_field}>
-        <CKEditor
-          editor={ClassicEditor}
+        <UpdateUserEditor
+          initialData={user?.description}
+          setDescription={setDescription}
+        />
+        {/* <CKEditor
+          editor={Editor}
           data={user?.description}
           onChange={(event, editor) => {
             const data = editor.getData();
             setDescription(data);
           }}
-        />
+        /> */}
       </div>
 
       <div>

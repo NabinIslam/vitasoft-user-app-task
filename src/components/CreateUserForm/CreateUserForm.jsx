@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/components/CreateUserForm/CreateForm.module.css';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import Dropzone from 'react-dropzone';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -18,15 +18,10 @@ const CreateUserForm = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
   const [description, setDescription] = useState('');
-  const CKEditor = dynamic(
+
+  const CreateUserEditor = dynamic(
     () => {
-      return import('@ckeditor/ckeditor5-react');
-    },
-    { ssr: false }
-  );
-  const ClassicEditor = dynamic(
-    () => {
-      return import('@ckeditor/ckeditor5-build-classic');
+      return import('@/components/CreateUserEditor/CreateUserEditor');
     },
     { ssr: false }
   );
@@ -111,14 +106,15 @@ const CreateUserForm = () => {
       </div>
       <label htmlFor="">Description</label>
       <div className={styles.description_field}>
-        <CKEditor
-          editor={ClassicEditor}
+        <CreateUserEditor setDescription={setDescription} />
+        {/* <CKEditor
+          editor={Editor}
           data={description}
           onChange={(event, editor) => {
             const data = editor.getData();
             setDescription(data);
           }}
-        />
+        /> */}
       </div>
 
       <div>
