@@ -5,12 +5,18 @@ import { useForm } from 'react-hook-form';
 import Dropzone from 'react-dropzone';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+// import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
 const CreateUserForm = () => {
+  const CKEditor = dynamic(
+    () => {
+      return import('@ckeditor/ckeditor5-react');
+    },
+    { ssr: false }
+  );
   const { handleSubmit, reset, register } = useForm();
   const [profilePicture, setProfilePicture] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
