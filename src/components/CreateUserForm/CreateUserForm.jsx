@@ -11,6 +11,7 @@ import DatePicker from 'react-datepicker';
 
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import dynamic from 'next/dynamic';
 
 const CreateUserForm = () => {
   const CKEditor = dynamic(
@@ -19,12 +20,13 @@ const CreateUserForm = () => {
     },
     { ssr: false }
   );
-  const Editor = dynamic(
+  const ClassicEditor = dynamic(
     () => {
-      return import('ckeditor5-custom-build');
+      return import('@ckeditor/ckeditor5-build-classic');
     },
     { ssr: false }
   );
+
   const { handleSubmit, reset, register } = useForm();
   const [profilePicture, setProfilePicture] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
@@ -111,7 +113,7 @@ const CreateUserForm = () => {
       <label htmlFor="">Description</label>
       <div className={styles.description_field}>
         <CKEditor
-          editor={Editor}
+          editor={ClassicEditor}
           data={description}
           onChange={(event, editor) => {
             const data = editor.getData();
